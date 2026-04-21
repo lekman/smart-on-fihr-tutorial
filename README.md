@@ -1,8 +1,39 @@
 # smart-on-fihr-tutorial
 
-Fork of [cerner/smart-on-fhir-tutorial](https://github.com/cerner/smart-on-fhir-tutorial) — a SMART on FHIR example app served from GitHub Pages, with added Sentry observability.
+![React SMART on FHIR demo](images/react.png)
+
+A minimal SMART on FHIR provider-launch app that reads a patient's demographics and a handful of observations (height, BP panel, HDL/LDL) from any FHIR server and renders them in the browser. Originally the [cerner/smart-on-fhir-tutorial](https://github.com/cerner/smart-on-fhir-tutorial) static demo; this fork adds two things worth caring about.
+
+**What's here:**
+
+- **`/example-smart-app/`** — the original tutorial, patched for DSTU2/R4 name-shape differences and wired with Sentry (errors, tracing, replay, structured logs).
+- **`/react-app/`** — a full rebuild on Vite + React 19 + TypeScript + MUI + `fhirclient` v2 + `@sentry/react`, intended as the starting point for real integration work.
+
+**Why the rebuild:** the upstream tutorial uses jQuery 1.12.4, a precompiled `fhir-client-v0.1.12.js`, IE11 polyfills, and `.html()` sinks — fine for a learning demo, not fine as a foundation for production. The React variant keeps the same SMART launch flow but replaces all of that with a modern, typed, observable stack.
 
 > Note: the repo name contains a typo (`fihr`, not `fhir`). URLs below use the actual repo name.
+
+## Launching via SMART Health IT (no registration)
+
+This fork ships **two variants** of the same SMART app:
+
+- `/example-smart-app/` — original tutorial, patched (null-safe, Sentry-instrumented)
+- `/react-app/` — modern rebuild: Vite + React + TypeScript + MUI + `fhirclient` v2 + `@sentry/react`
+
+Steps (same for both):
+
+1. https://launch.smarthealthit.org
+2. **Launch Type**: Provider EHR Launch (default)
+3. **FHIR Version**: R4 *(both variants tolerate R2 or R4 after the null-safe fix)*
+4. Pick any **Patient** and **Provider** — not blank, this matters
+5. **App Launch URL** — pick one:
+   - React: `https://lekman.github.io/smart-on-fihr-tutorial/react-app/launch.html`
+   - Static: `https://lekman.github.io/smart-on-fihr-tutorial/example-smart-app/launch-smart-sandbox.html`
+6. **Launch App**
+
+### Launching via Cerner (requires registration)
+
+See the tutorial at https://lekman.github.io/smart-on-fihr-tutorial/ for the full registration walkthrough. After registering, paste the Cerner `client_id` into `example-smart-app/launch.html:29` (and `example-smart-app/launch-patient.html:29` for the patient flow). The React app uses a placeholder `client_id` that the SMART Health IT launcher accepts without validation; for Cerner, edit [`react-app/src/launch.tsx`](react-app/src/launch.tsx).
 
 ## Setup
 
@@ -36,19 +67,6 @@ All URLs live under `https://lekman.github.io/smart-on-fihr-tutorial/example-sma
 | EHR launch (SMART Health IT) | `launch-smart-sandbox.html`                 | Entry for SMART Health IT launcher; no `client_id` validation    |
 | Standalone patient launch    | `launch-patient.html?iss=<FHIR-server-URL>` | Patient-facing standalone flow; needs Cerner patient `client_id` |
 | Redirect target              | `index.html`                                | Renders patient + observations after OAuth redirect              |
-
-### Launching via SMART Health IT (no registration)
-
-1. https://launch.smarthealthit.org
-2. **Launch Type**: Provider EHR Launch (default)
-3. **FHIR Version**: R2 (DSTU2)
-4. Pick any **Patient** and **Provider**
-5. **App Launch URL**: `https://lekman.github.io/smart-on-fihr-tutorial/example-smart-app/launch-smart-sandbox.html`
-6. **Launch App!**
-
-### Launching via Cerner (requires registration)
-
-See the tutorial at https://lekman.github.io/smart-on-fihr-tutorial/ for the full registration walkthrough. After registering, paste the Cerner `client_id` into `launch.html:29` (and `launch-patient.html:29` for the patient flow).
 
 ## Verifying Sentry
 
