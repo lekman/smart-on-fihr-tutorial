@@ -10,6 +10,13 @@
       Temporarily disable cerner-smart-embeddable-lib
       <link rel='stylesheet' type='text/css' href='./lib/css/cerner-smart-embeddable-lib-1.0.0.min.css'>
     -->
+
+    <!-- Sentry Browser SDK (errors + tracing + replay + logs). Must load before app code. -->
+    <script
+      src="https://browser.sentry-cdn.com/10.42.0/bundle.tracing.replay.feedback.logs.metrics.min.js"
+      integrity="sha384-gOjSzRxwpXpy0FlT6lg/AVhagqrsUrOWUO7jm6TJwuZ9YVHtYK0MBA2hW2FGrIGl"
+      crossorigin="anonymous"></script>
+    <script src="./src/js/sentry-init.js"></script>
   </head>
   <body>
     <div id='errors'>
