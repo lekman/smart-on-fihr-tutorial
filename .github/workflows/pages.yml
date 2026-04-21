@@ -25,8 +25,8 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'npm'
+          node-version-file: react-app/.nvmrc
+          cache: "npm"
           cache-dependency-path: react-app/package-lock.json
 
       - name: Install react-app deps

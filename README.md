@@ -18,7 +18,7 @@ Pages is configured to publish from the `gh-pages` branch. If deploys stop firin
 Paste your Sentry project DSN into [`example-smart-app/src/js/sentry-init.js`](example-smart-app/src/js/sentry-init.js):
 
 ```js
-var DSN = 'https://<public-key>@<org>.ingest.<region>.sentry.io/<project-id>';
+var DSN = "https://<public-key>@<org>.ingest.<region>.sentry.io/<project-id>";
 ```
 
 Find it at https://sentry.io/settings/projects/algodx/keys/. DSNs are public and safe to commit.
@@ -29,13 +29,13 @@ Commit + push to `gh-pages`. GitHub Pages redeploys in 1–2 minutes.
 
 All URLs live under `https://lekman.github.io/smart-on-fihr-tutorial/example-smart-app/`.
 
-| Page | URL suffix | Purpose |
-| --- | --- | --- |
-| Health check | `health.html` | Verifies Pages deploy is live |
-| EHR launch (Cerner) | `launch.html` | Entry for Cerner sandbox; needs Cerner `client_id` |
-| EHR launch (SMART Health IT) | `launch-smart-sandbox.html` | Entry for SMART Health IT launcher; no `client_id` validation |
-| Standalone patient launch | `launch-patient.html?iss=<FHIR-server-URL>` | Patient-facing standalone flow; needs Cerner patient `client_id` |
-| Redirect target | `index.html` | Renders patient + observations after OAuth redirect |
+| Page                         | URL suffix                                  | Purpose                                                          |
+| ---------------------------- | ------------------------------------------- | ---------------------------------------------------------------- |
+| Health check                 | `health.html`                               | Verifies Pages deploy is live                                    |
+| EHR launch (Cerner)          | `launch.html`                               | Entry for Cerner sandbox; needs Cerner `client_id`               |
+| EHR launch (SMART Health IT) | `launch-smart-sandbox.html`                 | Entry for SMART Health IT launcher; no `client_id` validation    |
+| Standalone patient launch    | `launch-patient.html?iss=<FHIR-server-URL>` | Patient-facing standalone flow; needs Cerner patient `client_id` |
+| Redirect target              | `index.html`                                | Renders patient + observations after OAuth redirect              |
 
 ### Launching via SMART Health IT (no registration)
 
@@ -62,7 +62,7 @@ After launching, check the `algodx` project in Sentry:
 Force a test event from DevTools:
 
 ```js
-Sentry.captureException(new Error('algodx smoke test'))
+Sentry.captureException(new Error("algodx smoke test"));
 ```
 
 ## Changes
@@ -92,7 +92,7 @@ Deploy workflow for the case where Pages source is set to **GitHub Actions** rat
 
 ### Pick a patient and a provider in the SMART launcher
 
-In https://launch.smarthealthit.org, leaving **Patient** and **Provider** empty makes the launcher skip setting the launch context. The app then has no patient to read, `smart.patient` is missing or incomplete, and `extractData` fails in ways that look like code bugs. Always pick both from the dropdowns before clicking *Launch App!*.
+In https://launch.smarthealthit.org, leaving **Patient** and **Provider** empty makes the launcher skip setting the launch context. The app then has no patient to read, `smart.patient` is missing or incomplete, and `extractData` fails in ways that look like code bugs. Always pick both from the dropdowns before clicking _Launch App!_.
 
 ### Match the FHIR version to the code
 
@@ -101,7 +101,7 @@ The upstream tutorial was written for **FHIR DSTU2 (R2)**. Selecting **R4** in t
 - `HumanName.family` is `string[]` in DSTU2 but `string` in STU3/R4 — this is what caused the original `patient.name[0].family.join is not a function` crash.
 - Other fields (addresses, telecoms, references) have similar cardinality changes between versions.
 
-Either run the launcher on **R2 (DSTU2)** to match the tutorial, or keep R4 and rely on the null-safe helpers added in [`example-smart-app.js`](example-smart-app/src/js/example-smart-app.js) (`nameToString`, `safeGet`) to handle both shapes. The fixed code tolerates either version, but the mismatch is a good reminder that *FHIR version is part of your API contract* — treat it like a breaking change.
+Either run the launcher on **R2 (DSTU2)** to match the tutorial, or keep R4 and rely on the null-safe helpers added in [`example-smart-app.js`](example-smart-app/src/js/example-smart-app.js) (`nameToString`, `safeGet`) to handle both shapes. The fixed code tolerates either version, but the mismatch is a good reminder that _FHIR version is part of your API contract_ — treat it like a breaking change.
 
 ### Observability catches the boring errors fastest
 
