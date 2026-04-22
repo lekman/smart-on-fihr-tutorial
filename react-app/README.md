@@ -22,6 +22,10 @@ npm run dev
 
 The dev server runs at http://localhost:5173. SMART launch via the dev server requires adding `http://localhost:5173/launch.html` as a Launch URI in whichever sandbox you use.
 
+### Direct-hit behavior
+
+Both [`launch.html`](launch.html) and [`index.html`](index.html) check for the required SMART query parameters before calling the `fhirclient` library. Hitting either URL directly (no `iss` on `launch.html`, no `code`+`state` on `index.html`) renders a friendly [`Unauthorized`](src/Unauthorized.tsx) info card with the correct launcher URL — no console errors, no Sentry events. Sentry only captures genuine FHIR/OAuth failures during a real launch attempt.
+
 ## Production URLs
 
 After deploy to `gh-pages`:

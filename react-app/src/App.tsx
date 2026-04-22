@@ -18,16 +18,36 @@ import MonitorHeartIcon from '@mui/icons-material/MonitorHeart'
 import FHIR from 'fhirclient'
 import { Sentry } from './sentry'
 import { loadPatientSummary, type PatientSummary } from './fhir'
+import { Unauthorized } from './Unauthorized'
 
 type AppState =
   | { status: 'loading' }
+  | { status: 'unauthorized' }
   | { status: 'ready'; summary: PatientSummary }
   | { status: 'error'; message: string }
 
+// Guard: index.html is only reachable after the auth server redirects back
+// with ?code=...&state=... Direct hits are expected user errors, not bugs —
+// compute this at mount time so the effect doesn't need to short-circuit.
+function hasAuthCallback(): boolean {
+  const params = new URLSearchParams(window.location.search)
+  return Boolean(params.get('code') && params.get('state'))
+}
+
 export function App() {
-  const [state, setState] = useState<AppState>({ status: 'loading' })
+  const [state, setState] = useState<AppState>(() =>
+    hasAuthCallback() ? { status: 'loading' } : { status: 'unauthorized' },
+  )
 
   useEffect(() => {
+    if (!hasAuthCallback()) {
+      Sentry.addBreadcrumb({
+        category: 'smart',
+        message: 'App guard: missing code/state query params',
+      })
+      return
+    }
+
     Sentry.addBreadcrumb({ category: 'smart', message: 'App mounted, awaiting FHIR.oauth2.ready' })
 
     FHIR.oauth2
@@ -40,6 +60,10 @@ export function App() {
         setState({ status: 'error', message })
       })
   }, [])
+
+  if (state.status === 'unauthorized') {
+    return <Unauthorized reason="index-missing-auth-code" />
+  }
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
