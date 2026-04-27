@@ -8,10 +8,10 @@ import { Unauthorized, type UnauthorizedReason } from './Unauthorized'
 
 initSentry()
 
-// Client ID for the SMART Health IT launcher is not validated, so a
-// placeholder is fine here. For Cerner, register an app in code.cerner.com
-// and replace this value.
-const CLIENT_ID = 'react-smart-tutorial'
+// Default to the AlgoDx Platform (Development) app registered in Cerner.
+// Override via ?clientId= on the launch URL to use a different registration.
+const params_launch = new URLSearchParams(window.location.search)
+const CLIENT_ID = params_launch.get('clientId') ?? '5a073734-df63-4f6c-a936-44024f570069'
 
 function renderGuard(reason: UnauthorizedReason, detail?: string): void {
   const root = document.getElementById('root')
