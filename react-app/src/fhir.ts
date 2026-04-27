@@ -13,6 +13,27 @@ export type PatientSummary = {
   ldl?: string
 }
 
+// Cerner registration for AlgoDx Platform (Development). The OAuth round-trip
+// works, but the data scopes are not granted — every Patient/Observation read
+// returns 403 insufficient_scope. Treat this client ID as a demo bypass and
+// render mock data instead of hitting the FHIR API.
+export const DEMO_CLIENT_ID = '5a073734-df63-4f6c-a936-44024f570069'
+
+export const MOCK_PATIENT_SUMMARY: PatientSummary = {
+  firstName: 'Demo',
+  lastName: 'Patient',
+  gender: 'female',
+  birthDate: '1985-04-12',
+  height: '168 cm',
+  systolicBP: '122 mm[Hg]',
+  diastolicBP: '78 mm[Hg]',
+  hdl: '58 mg/dL',
+  ldl: '104 mg/dL',
+}
+
+export const isDemoClient = (client: Client): boolean =>
+  client.state.clientId === DEMO_CLIENT_ID
+
 // FHIR HumanName.family is string[] in DSTU2 and string in STU3/R4.
 // HumanName.given stays string[]. Handle both to avoid the .join crash the
 // original tutorial had against R4 data.

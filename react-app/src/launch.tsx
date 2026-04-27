@@ -5,13 +5,14 @@ import FHIR from 'fhirclient'
 import { initSentry, Sentry } from './sentry'
 import { theme } from './theme'
 import { Unauthorized, type UnauthorizedReason } from './Unauthorized'
+import { DEMO_CLIENT_ID } from './fhir'
 
 initSentry()
 
 // Default to the AlgoDx Platform (Development) app registered in Cerner.
 // Override via ?clientId= on the launch URL to use a different registration.
 const params_launch = new URLSearchParams(window.location.search)
-const CLIENT_ID = params_launch.get('clientId') ?? '5a073734-df63-4f6c-a936-44024f570069'
+const CLIENT_ID = params_launch.get('clientId') ?? DEMO_CLIENT_ID
 
 function renderGuard(reason: UnauthorizedReason, detail?: string): void {
   const root = document.getElementById('root')

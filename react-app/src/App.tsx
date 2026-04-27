@@ -17,7 +17,12 @@ import PersonIcon from '@mui/icons-material/Person'
 import MonitorHeartIcon from '@mui/icons-material/MonitorHeart'
 import FHIR from 'fhirclient'
 import { Sentry } from './sentry'
-import { loadPatientSummary, type PatientSummary } from './fhir'
+import {
+  MOCK_PATIENT_SUMMARY,
+  isDemoClient,
+  loadPatientSummary,
+  type PatientSummary,
+} from './fhir'
 import { Unauthorized } from './Unauthorized'
 
 type AppState =
@@ -52,7 +57,16 @@ export function App() {
 
     FHIR.oauth2
       .ready()
-      .then((client) => loadPatientSummary(client))
+      .then((client) => {
+        if (isDemoClient(client)) {
+          Sentry.addBreadcrumb({
+            category: 'fhir',
+            message: 'demo client detected — using mock summary',
+          })
+          return MOCK_PATIENT_SUMMARY
+        }
+        return loadPatientSummary(client)
+      })
       .then((summary) => setState({ status: 'ready', summary }))
       .catch((err: unknown) => {
         const message = err instanceof Error ? err.message : 'Failed to load patient data'
