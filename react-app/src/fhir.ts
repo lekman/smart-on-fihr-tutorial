@@ -13,10 +13,10 @@ export type PatientSummary = {
   ldl?: string
 }
 
-// Cerner registration for AlgoDx Platform (Development). The OAuth round-trip
-// works, but the data scopes are not granted — every Patient/Observation read
-// returns 403 insufficient_scope. Treat this client ID as a demo bypass and
-// render mock data instead of hitting the FHIR API.
+// Default Cerner sandbox registration. The OAuth round-trip works, but the
+// data scopes are not granted — every Patient/Observation read returns 403
+// insufficient_scope. Treat this client ID as a demo bypass and render mock
+// data instead of hitting the FHIR API.
 export const DEMO_CLIENT_ID = '5a073734-df63-4f6c-a936-44024f570069'
 
 export const MOCK_PATIENT_SUMMARY: PatientSummary = {

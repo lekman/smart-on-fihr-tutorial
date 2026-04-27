@@ -9,7 +9,7 @@ import { DEMO_CLIENT_ID } from './fhir'
 
 initSentry()
 
-// Default to the AlgoDx Platform (Development) app registered in Cerner.
+// Default to the sandbox app registered in Cerner.
 // Override via ?clientId= on the launch URL to use a different registration.
 const params_launch = new URLSearchParams(window.location.search)
 const CLIENT_ID = params_launch.get('clientId') ?? DEMO_CLIENT_ID
