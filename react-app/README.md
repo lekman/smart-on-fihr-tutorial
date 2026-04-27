@@ -9,7 +9,7 @@ Modern rebuild of the tutorial's SMART app using Vite + React 19 + TypeScript + 
 | Build tool | Vite 8 | Multi-entry: `launch.html`, `index.html` |
 | UI | React 19 + MUI 5 | Material components, `ThemeProvider`, `CssBaseline` |
 | SMART flow | `fhirclient` v2 | Modern Promise API; replaces `fhir-client-v0.1.12.js` |
-| Observability | `@sentry/react` | Reuses the `algodx` Sentry project DSN |
+| Observability | `@sentry/react` | Reuses the `<client>` Sentry project DSN |
 | Types | TypeScript 6 | Strict on |
 
 ## Local dev
@@ -74,4 +74,4 @@ Pages source must be set to **GitHub Actions** (Settings → Pages).
 
 ## Sentry
 
-Uses the same `algodx` DSN as the static tutorial. Events from the React variant are distinguishable via the `smart.variant=react` tag.
+Uses the same `<client>` DSN as the static tutorial. Events from the React variant are distinguishable via the `smart.variant=react` tag.

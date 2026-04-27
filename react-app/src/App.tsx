@@ -85,7 +85,7 @@ export function App() {
         <Typography variant="h4" component="h1">
           SMART on FHIR — React demo
         </Typography>
-        <Chip label="algodx" color="primary" size="small" />
+        <Chip label="client" color="primary" size="small" />
       </Stack>
 
       {state.status === 'loading' && (

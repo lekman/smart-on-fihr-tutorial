@@ -52,7 +52,7 @@ Paste your Sentry project DSN into [`example-smart-app/src/js/sentry-init.js`](e
 var DSN = "https://<public-key>@<org>.ingest.<region>.sentry.io/<project-id>";
 ```
 
-Find it at https://sentry.io/settings/projects/algodx/keys/. DSNs are public and safe to commit.
+Find it at https://sentry.io/settings/projects/<client>/keys/. DSNs are public and safe to commit.
 
 Commit + push to `gh-pages`. GitHub Pages redeploys in 1–2 minutes.
 
@@ -70,7 +70,7 @@ All URLs live under `https://lekman.github.io/smart-on-fihr-tutorial/example-sma
 
 ## Verifying Sentry
 
-After launching, check the `algodx` project in Sentry:
+After launching, check the `<client>` project in Sentry:
 
 - **Logs** — `Page loaded` (tagged `smart.page: launch-smart-sandbox` then `index`) and `Patient data assembled`
 - **Traces** — page-load transactions per entry point
@@ -80,7 +80,7 @@ After launching, check the `algodx` project in Sentry:
 Force a test event from DevTools:
 
 ```js
-Sentry.captureException(new Error("algodx smoke test"));
+Sentry.captureException(new Error("smoke test"));
 ```
 
 ## Changes
@@ -127,7 +127,7 @@ The original code logged `'Loading error'` to the console and rejected silently.
 
 ## Production Integration — Context and Open Questions
 
-This tutorial fork is the starting point for an AlgoDx integration targeting a **May 2026 release**. FHIR **R4** is confirmed working against the SMART Health IT sandbox after the null-safe fixes above.
+This tutorial fork is the starting point for an <client> integration targeting a **May 2026 release**. FHIR **R4** is confirmed working against the SMART Health IT sandbox after the null-safe fixes above.
 
 ### Design system: Terra is archived, successor unclear
 
@@ -142,7 +142,7 @@ The app launches in an iframe inside the MPage (or a full new window, depending 
 ### Open questions before we commit to a UI stack
 
 1. Does **MHN's** Oracle Health instance have any UI requirements for embedded SMART apps?
-2. Does **AlgoDx** have an existing design system or component library from previous deployments (the PoC at the two Chicago hospitals)?
+2. Does **<client>** have an existing design system or component library from previous deployments (the PoC at the two Chicago hospitals)?
 3. Is **Oracle Health** still enforcing design validation for SMART apps, and if so, against what standard now that Terra is archived?
 
 ### Interim direction
