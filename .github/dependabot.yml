@@ -1,0 +1,30 @@
+# Dependabot configuration.
+# Installed by the `dependabot` plugin from lekman/ai-toolkit.
+#
+# Grouping keeps the PR count low: one PR per ecosystem per week. Majors are
+# split into their own group so the auto-merge workflow holds them for review.
+version: 2
+updates:
+  # GitHub Actions used in .github/workflows (pages.yml).
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      all-actions:
+        patterns:
+          - "*"
+
+  # React app dependencies live under react-app/.
+  - package-ecosystem: npm
+    directory: /react-app
+    schedule:
+      interval: weekly
+    groups:
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
+      majors:
+        update-types:
+          - major
