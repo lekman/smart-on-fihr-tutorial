@@ -17,7 +17,7 @@
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^9.2.0",
     "@mui/material": "^9.0.0",
-    "@sentry/react": "^10.68.0",
+    "@sentry/react": "^10.69.0",
     "fhirclient": "^2.6.3",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
@@ -25,15 +25,15 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/node": "^26.1.2",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.4",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^6.0.5",
     "eslint": "^10.8.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.3",
-    "globals": "^17.8.0",
+    "globals": "^17.9.0",
     "typescript": "~7.0.2",
-    "typescript-eslint": "^8.65.0",
-    "vite": "^8.1.5"
+    "typescript-eslint": "^8.66.0",
+    "vite": "^8.2.0"
   }
 }
